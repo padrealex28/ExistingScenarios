@@ -23,10 +23,7 @@ import utilClass.RetryElements;
 
 public class SummaryPageTest extends CommonFunctions {
 
-	public static XSSFWorkbook workbook;
-	public static XSSFSheet sheet;
-	public static XSSFRow row1;
-	public static XSSFCell cell1, cell2;
+
 	public static String firstName, lastName, payeeFirstName, payeeLastName, payeeName2;
 	public static int chequeNumber;
 	Logger logger = Logger.getLogger(SummaryPageTest.class);
@@ -53,19 +50,25 @@ public class SummaryPageTest extends CommonFunctions {
 				Thread.sleep(10000);
 				if (!map.get("Occupancy Type").toString().equalsIgnoreCase("Vacant (including cosmetic/non-structural renovations)") 				
 				|| !map.get("Occupancy Type").toString().equalsIgnoreCase("Builders Risk (Structural Renovations & Ground Up Construction)"))
-			    {
-				SummaryPageObjects.ITPCheckbox.click();
-				Thread.sleep(3000);
+				
+					try {
+						SummaryPageObjects.ITPCheckbox.click();
+						Thread.sleep(3000);
+					}
+				catch(Exception e) {
+					logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": ITP checkbox not present");
 				}
-				
-				
 				try {
+				SummaryPageObjects.ITPCheckbox.click();
+				Thread.sleep(1000);
+				if(SummaryPageObjects.contactFirstName.isDisplayed()) {
 				RetryElements.Element_sendKeys(SummaryPageObjects.contactFirstName,map.get("First Name").toString());				
 				logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Contact First Name"+map.get("First Name").toString());
-				Thread.sleep(3000);
+				Thread.sleep(1000);
 				RetryElements.Element_sendKeys(SummaryPageObjects.contactLastName,map.get("Last Name").toString());
 				logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Contact First Name"+map.get("Last Name").toString());
-				Thread.sleep(3000);
+				Thread.sleep(1000);
+				}
 				}
 				catch (Exception e) {
 					logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Contact First name and Last Name NOT PRESENT",e);
@@ -73,7 +76,7 @@ public class SummaryPageTest extends CommonFunctions {
 				}
 				RetryElements.Element_sendKeys(SummaryPageObjects.chequeNo,map.get("Cheque Number").toString());
 				logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Cheque Number"+map.get("Cheque Number").toString());
-				Thread.sleep(3000);
+				Thread.sleep(1000);
 				RetryElements.Element_sendKeys(SummaryPageObjects.payeeName,map.get("Payee Name").toString());
 				logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Payee Name"+map.get("Payee Name").toString());
 				Thread.sleep(3000);
@@ -104,6 +107,23 @@ public class SummaryPageTest extends CommonFunctions {
 			SummaryPageObjects.bindRequest.click();	
 			Thread.sleep(20000);
 			
+			try {
+				WebElement declineCarrier = driver.findElement(By.xpath("//input[@id=\"OtherDocumentationTile:OtherDocumentationForm:Object__DecliningCarrier__DecliningCarrier1\"]"));
+				if(declineCarrier.isDisplayed()) {
+					logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Decline Carrier Input Fields IS DISPLAYED");
+					declineCarrier.sendKeys(map.get("Declined by QuickHome Carrier").toString());
+					WebElement declineCarrier2 = driver.findElement(By.xpath("//input[@id=\"OtherDocumentationTile:OtherDocumentationForm:Object__DecliningCarrier__DecliningCarrier2\"]"));
+					WebElement declineCarrier3 = driver.findElement(By.xpath("//input[@id=\"OtherDocumentationTile:OtherDocumentationForm:Object__DecliningCarrier__DecliningCarrier3\"]"));
+					declineCarrier2.sendKeys(map.get("Declined by QuickHome Carrier").toString());
+					declineCarrier3.sendKeys(map.get("Declined by QuickHome Carrier").toString());
+					WebElement save = driver.findElement(By.xpath("//*[@id=\"OtherDocumentationTile:OtherDocumentationForm:OtherDocSaveButton\"]"));
+					save.click();
+				}
+			}
+			catch (Exception e) {
+				logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Decline Carrier Input Fields NOT DISPLAYED");
+			}
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Saving Declining Carrier')]")));
 			SummaryPageObjects.issueBinderMenu.click();
 			SummaryPageObjects.issueBinder.click();
 			
@@ -113,7 +133,7 @@ public class SummaryPageTest extends CommonFunctions {
 			RetryElements.Element_sendKeys(SummaryPageObjects.contactLastname,map.get("Last Name").toString());
 			Thread.sleep(2000);
 			SummaryPageObjects.issueBinderBtn.click();
-			Thread.sleep(20000);
+			Thread.sleep(40000);  // 40 seconds wait time for the C1 TO PASS
 			RetryElements.Element_click(SummaryPageObjects.postBoundCheck1);			
 			Thread.sleep(2000);
 			RetryElements.Element_click(SummaryPageObjects.postBoundCheck2);

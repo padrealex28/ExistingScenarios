@@ -2,6 +2,7 @@ package utilClass;
 
 import java.util.List;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -17,7 +18,11 @@ public class RetryElements {
 				outcome = true;
 				break;
 				}
-			
+			catch(NoSuchElementException e) {
+				System.out.println("Element Not Present "+locator+ e.getClass().getSimpleName());
+				break;
+			}
+						
 			catch(Exception e) {
 				System.out.println("exception occured during click for the element: "+locator+ e.getClass().getSimpleName());
 				
@@ -35,6 +40,10 @@ public class RetryElements {
 			try {
 				locator.sendKeys(value);
 				outcome = true;
+				break;
+			}
+			catch(NoSuchElementException e) {
+				System.out.println("Element Not Present "+locator+ e.getClass().getSimpleName());
 				break;
 			}
 			catch(Exception e) {
@@ -56,6 +65,10 @@ public class RetryElements {
 				outcome = true;
 				break;
 			}
+			catch(NoSuchElementException e) {
+				System.out.println("Element Not Present "+locator+ e.getClass().getSimpleName());
+				break;
+			}
 			catch(Exception e) {
 				System.out.println("exception occured during select for element: " +locator+ "and value: " +value );
 				e.printStackTrace();
@@ -72,6 +85,10 @@ public class RetryElements {
 				Actions action01 = new Actions(driver);
 				action01.doubleClick(locator);
 				outcome = true;
+				break;
+			}
+			catch(NoSuchElementException e) {
+				System.out.println("Element Not Present "+locator+ e.getClass().getSimpleName());
 				break;
 			}
 			catch(Exception e) {
@@ -93,6 +110,10 @@ public class RetryElements {
 				value = locator.get(number).getText();
 				break;
 			}
+			catch(NoSuchElementException e) {
+				System.out.println("Element Not Present "+locator+ e.getClass().getSimpleName());
+				break;
+			}
 			catch(Exception e) {
 				System.out.println("exception occured during action for element: " +locator);
 				e.printStackTrace();
@@ -102,6 +123,9 @@ public class RetryElements {
 		}
 		return value;
 	
+	}
+	public static void Wait(int seconds) throws InterruptedException {
+		Thread.sleep(seconds);
 	}
 
 }

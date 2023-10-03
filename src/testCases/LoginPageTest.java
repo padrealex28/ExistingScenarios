@@ -36,12 +36,18 @@ public class LoginPageTest extends CommonFunctions {
 
 	Logger logger = Logger.getLogger(LoginPageTest.class);
     
-	 @Test(dataProvider ="Datafromexcel",dataProviderClass = readFromExcel.class)
+	 
      public void runnerMethod(Map map) throws Exception { 		 
-	  //Thread.sleep(10000);
-		 loginPage(map);
-
-      
+	  loginPage(map);
+      FindQuoteTest findQuote = new FindQuoteTest();
+      findQuote.FindAndClickQuote(map);
+      QuoteStatusTest quoteStatus = new QuoteStatusTest();
+      quoteStatus.checkQuoteStatus(map);
+      EndorsementPageTest endorsement = new EndorsementPageTest();
+     endorsement.issueEndorsement(map);
+    // Cancel_Reinstate_Test cancel_reinstate = new Cancel_Reinstate_Test();
+    // cancel_reinstate.cancelPolicy(map);
+    // cancel_reinstate.reinstatePolicy(map);
   }
 		
 	public void loginPage(Map map) throws Exception {

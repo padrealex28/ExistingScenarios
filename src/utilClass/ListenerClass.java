@@ -23,8 +23,8 @@ public class ListenerClass extends CommonFunctions implements ITestListener{
 	public void onTestFailure(ITestResult result) {
 		  driver.quit();
 		    try {
-				launchBrowser();
-			} catch (IOException e) {
+		//		launchBrowser(properties);
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -35,8 +35,8 @@ public class ListenerClass extends CommonFunctions implements ITestListener{
 	public void onTestSkipped(ITestResult result) {
 		 driver.quit();
 		    try {
-				launchBrowser();
-			} catch (IOException e) {
+		//		launchBrowser(properties);
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

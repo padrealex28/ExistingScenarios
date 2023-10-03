@@ -16,37 +16,48 @@ import pageObjects.QuoteStatusObjects;
 import utilClass.CommonFunctions;
 
 public class QuoteStatusTest extends CommonFunctions {
-	Logger logger = Logger.getLogger(QuoteStatusTest.class);
+	
 
 	public void checkQuoteStatus(Map map) throws InterruptedException {
 		PageFactory.initElements(driver, QuoteStatusObjects.class);
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
 		String QuoteStatus = QuoteStatusObjects.quoteStatus.getText();
 		WebElement nextPageLink = QuoteStatusObjects.businessRuleTable2ndPage;
-
-		if (QuoteStatus.equalsIgnoreCase("Referred")) {
+		Logger logger = Logger.getLogger(QuoteStatusTest.class);
+		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Quote Status is "+QuoteStatus);
+		
+		if (QuoteStatus.equalsIgnoreCase("Referred") || QuoteStatus.equalsIgnoreCase("Offered") ) {
+			
+		if	(QuoteStatus.equalsIgnoreCase("Referred")) {
+		
 			ClickOverride();		
 
 		try {
 			if (nextPageLink.isDisplayed()) {
 				logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()
-						+ "2nd page for Referral rule ovverride DISPLAYED");
+						+ ": 2nd page for Referral rule ovverride DISPLAYED");
 				ClickOverride();
 			}
 		} catch (Exception e) {
 			logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()
-					+ "2nd page for Referral rule ovverride NOT DISPLAYED");
+					+ ": 2nd page for Referral rule ovverride NOT DISPLAYED");
 		}			
 		wait.until(ExpectedConditions.elementToBeClickable(QuoteStatusObjects.createQuoteProposal)).click();
 		QuoteStatusObjects.createQuoteProposalBtn.click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Creating Quote Proposal')]")));
+		}
+		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Entering Summary Page Test");
+		SummaryPageTest summ = new SummaryPageTest();
+		summ.issuePolicy(map);
 		
 		}		
+		else {
+			logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Did Not Go Inside Any IF Condition");
+		}
+					
+				
+}
 
-		else if(QuoteStatus.equalsIgnoreCase("Offered")) {
-			SummaryPageTest summ = new SummaryPageTest();
-			summ.issuePolicy(map);
-		}							
-	}
 
 	private void ClickOverride() throws InterruptedException {
 		List<WebElement> businessRuleRows = QuoteStatusObjects.businessRuleTable.findElements(By.tagName("tr"));
@@ -57,7 +68,8 @@ public class QuoteStatusTest extends CommonFunctions {
 					.findElement(By.tagName("select"));
 			Select select = new Select(selectElement);
 			select.selectByVisibleText("Override");
-			QuoteStatusObjects.saveStatus.click();
+			
 		}
+		QuoteStatusObjects.saveStatus.click();
 	}
 }

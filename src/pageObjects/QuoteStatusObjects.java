@@ -12,7 +12,7 @@ public class QuoteStatusObjects {
 	public static WebElement businessRuleTable;
 	
 
-	@FindBy(xpath="//*[@id=\"BusinessRuleTile:BusinessRuleform:HamburgerBusinssRuleDatatable_paginator_bottom\"]/span[1]/a[2]");
+	@FindBy(xpath="//*[@id=\"BusinessRuleTile:BusinessRuleform:HamburgerBusinssRuleDatatable_paginator_bottom\"]/span[1]/a[2]")
 	public static WebElement businessRuleTable2ndPage;
 	
 	@FindBy(xpath="//*[@id=\"BusinessRuleTile:BusinessRuleform:SaveBusinessRule\"]/span")

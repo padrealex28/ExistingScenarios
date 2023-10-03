@@ -19,6 +19,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -27,7 +28,10 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import testCases.LoginPageTest;
+import testCases.readFromExcel;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class CommonFunctions {
@@ -39,18 +43,19 @@ public class CommonFunctions {
 	//ExtentReports extentReport;
 	//ExtentHtmlReporter extentHTML;
 	//ExtentTest testCase;
-
+	@BeforeSuite
 	public Properties loadPropertyFile() throws IOException {
 
 		FileInputStream fileInputStream = new FileInputStream("config.properties");
 		properties = new Properties();
-		properties.load(fileInputStream);
+		properties.load(fileInputStream);	
 		return properties;
 
 	}
-
-	@BeforeTest
-	public void launchBrowser() throws IOException {
+	
+	
+	@Test(dataProvider ="Datafromexcel",dataProviderClass = readFromExcel.class)
+	public void launchBrowser(Map map) throws Exception {
 	//	extentReport = new ExtentReports();
 	//	extentHTML = new ExtentHtmlReporter("extentreport.html");
 	//	extentReport.attachReporter(extentHTML);
@@ -63,6 +68,13 @@ public class CommonFunctions {
 		System.setProperty("webdriver.chrome.driver", driverLoc);
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
+		
+		HashMap<String, Object> chromePrefs = new HashMap<>();
+		chromePrefs.put("download.default_directory","D:\\PDF DOCUMENTS\\"+map.get("Test Data No"));
+		
+		chromePrefs.put("plugins.always_open_pdf_externally", true);
+		options.setExperimentalOption("prefs", chromePrefs);
+		
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		options.merge(capabilities);
@@ -78,7 +90,10 @@ public class CommonFunctions {
 		driver.get(URL);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
-	//	testCase.log(Status.PASS, "Google Chrome Opened Successfully");
+		LoginPageTest runner = new LoginPageTest();
+		runner.runnerMethod(map);
+		
+		//	testCase.log(Status.PASS, "Google Chrome Opened Successfully");
     //    extentReport.flush();
 	}
 

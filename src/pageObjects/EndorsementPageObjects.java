@@ -4,6 +4,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class EndorsementPageObjects {
+	
+	@FindBy(xpath="//*[@id=\"HeaderForm:quoteHeaderPanelTest:HeaderBlock\"]/table/tbody/tr[5]/td[2]/label")
+	public static WebElement billType;
 
 	@FindBy(xpath = "//button[@id=\"staticLeftPaneAccordian:EndorsementListInfo\"]")
 	public static WebElement EndoresementSidePanelButton;
@@ -25,6 +28,11 @@ public class EndorsementPageObjects {
 	@FindBy(xpath = "//button[@id=\"locations:PLMLContinueToUWButton\"]")
 	public static WebElement ContinueToUWbutton;
 	//Wait for  proceeding to Underwriting details alert message to disappear after clicking this button
+		
+	public static final String policyLink = "//td[a[text()=\"%s\"]]/following-sibling::td/a";
+	
+	@FindBy(xpath = "//button[@id=\"AdditionalButton:ContinueToCS\"]")
+	public static WebElement ContinueToCSpage;
 	
 	@FindBy(xpath = "//button[@id=\"EndoContinueToCoverage\"]")
 	public static WebElement ContinueToCovButton;
@@ -44,11 +52,12 @@ public class EndorsementPageObjects {
 	@FindBy(xpath = "//textarea[@id=\"CompareTile:IssueEndorsementForm:Object__Endoresement__Description\"]")
 	public static WebElement EndorsementNotes;
 		
-	@FindBy(xpath = "//button[@id=\"CompareTile:IssueEndorsementForm:IssueEndorsementButton\"]")
+	@FindBy(xpath = "//*[contains(text(),'Issue Endorsement')]")
 	public static WebElement IssueEndorsementButton;	
      //wait for  Issuing Endorsement to disappear
 	// wait till //*[contains(text(),'Agent_Endorsement')]  to appear
+	public static final String pdf_file_path = "D:\\PDF DOCUMENTS\\%s\\Policy PDF.pdf";
 	
-	
-	
+
+
 }
