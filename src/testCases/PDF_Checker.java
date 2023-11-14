@@ -27,9 +27,28 @@ public class PDF_Checker {
 
 
 		try (PDDocument document = PDDocument.load(new File(pdfFilePath))) {
+
+			String[] UMR_Numbers = map.get("Expected UMR No").toString().split(",");
 			PDFTextStripper pdfTextStripper = new PDFTextStripper();
 			String pdfText = pdfTextStripper.getText(document);
+			
+			 for (int pageNum = 1; pageNum <= document.getNumberOfPages(); pageNum++) {
+		            pdfTextStripper.setStartPage(pageNum);
+		            pdfTextStripper.setEndPage(pageNum);
+		            String pageText = pdfTextStripper.getText(document);
+		            		            
+			for(String UMR_No : UMR_Numbers) {
+				if(pageText.contains(UMR_No)) {
+					logger.info("UMR_No is Present");
+				}
+				else {
+					logger.info("UMR_No is NOT Present");
+				}
+			}
 
+			 }
+			
+			
 			if (pdfText.contains(map.get("Expected UMR No").toString())) {
 				logger.info("Insert into Allrisks_Regression.PDF_Verification values ("+
 						map.get("Test Data No").toString()+",\""+map.get("Carrier").toString()+"\",\""+map.get("Quote Number").toString()+"\",\"Pass\")");

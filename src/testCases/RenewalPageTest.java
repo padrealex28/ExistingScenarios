@@ -6,22 +6,26 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
 import pageObjects.RenewalPageObjects;
 import utilClass.CommonFunctions;
+import utilClass.RetryElements;
 
 public class RenewalPageTest extends CommonFunctions {
-	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(200));
 	Logger logger = Logger.getLogger(RenewalPageTest.class);
 
 	public void renewPolicy(Map map) throws NoSuchElementException, InterruptedException {
+		PageFactory.initElements(driver, RenewalPageObjects.class);
 		EndorsementPageTest endo = new EndorsementPageTest();
 		endo.clickPolicyNumberLink(map);
 		
 		wait.until(ExpectedConditions.visibilityOf(RenewalPageObjects.renewalsSidePanelButton));
-		
+		RetryElements.Wait(4000);
 		RenewalPageObjects.renewalsSidePanelButton.click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Retrieving the Policy renewals')]")));
 		wait.until(ExpectedConditions.elementToBeClickable(RenewalPageObjects.CreateRenewalQuoteButton));
@@ -39,13 +43,11 @@ public class RenewalPageTest extends CommonFunctions {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Creating Quote Proposal')]")));
 		
 		// to get the policy status
-		Cancel_Reinstate_Test Cancel_Reinstate_Test = new Cancel_Reinstate_Test();
-		String policyStatus = Cancel_Reinstate_Test.getPolicyStatus(map);
+		//Cancel_Reinstate_Test Cancel_Reinstate_Test = new Cancel_Reinstate_Test();
+		//String policyStatus = Cancel_Reinstate_Test.getPolicyStatus(map);
 		
-		if(policyStatus.equalsIgnoreCase("Offered")) {
-			SummaryPageTest SummaryPageTest = new SummaryPageTest();
-			SummaryPageTest.issuePolicy(map);
-		}
+		QuoteStatusTest QuoteStatusTest = new QuoteStatusTest();
+		QuoteStatusTest.checkQuoteStatus(map);
 		
 	}
 }

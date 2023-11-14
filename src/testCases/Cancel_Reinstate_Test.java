@@ -21,7 +21,7 @@ public class Cancel_Reinstate_Test extends CommonFunctions{
 	Logger logger = Logger.getLogger(Cancel_Reinstate_Test.class);
 
 
-	public void cancelPolicy(Map map) {
+	public void cancelPolicy(Map map) throws InterruptedException {
 		PageFactory.initElements(driver, Cancel_Reinstate_PageObjects.class);
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Inside Cancel Policy Method");	
 		EndorsementPageTest endo = new EndorsementPageTest();
@@ -61,7 +61,7 @@ public class Cancel_Reinstate_Test extends CommonFunctions{
 		
 	}
 	
-	public void reinstatePolicy(Map map) {
+	public void reinstatePolicy(Map map) throws InterruptedException {
 		PageFactory.initElements(driver, Cancel_Reinstate_PageObjects.class);
 		EndorsementPageTest endo = new EndorsementPageTest();
 		endo.clickPolicyNumberLink(map);

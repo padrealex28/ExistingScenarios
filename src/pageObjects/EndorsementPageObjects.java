@@ -52,11 +52,28 @@ public class EndorsementPageObjects {
 	@FindBy(xpath = "//textarea[@id=\"CompareTile:IssueEndorsementForm:Object__Endoresement__Description\"]")
 	public static WebElement EndorsementNotes;
 		
+	@FindBy(xpath = "//*[contains(text(),'Endorsement Notes')]")
+	public static WebElement Endorsement_Notes_Text;
+	
+	@FindBy(xpath = "(//*[contains(text(),\"Company\")]/following::label)[1]")
+	public static WebElement Carrier_Name;
+	
+	@FindBy(xpath = "//*[contains(text(),\"Quote Number\")]")
+	public static WebElement QuoteNumber;	
+	
+	@FindBy(xpath = "//*[contains(text(),'BUSINESS RULES')]")
+	public static WebElement businessRulesERROR;	
+	
 	@FindBy(xpath = "//*[contains(text(),'Issue Endorsement')]")
 	public static WebElement IssueEndorsementButton;	
      //wait for  Issuing Endorsement to disappear
 	// wait till //*[contains(text(),'Agent_Endorsement')]  to appear
-	public static final String pdf_file_path = "D:\\PDF DOCUMENTS\\%s\\Policy PDF.pdf";
+	public static final String pdf_file_path = "D:\\\\PDF DOCUMENTS\\\\%s\\\\Policy PDF.pdf";
+	
+	@FindBy(xpath="//span[contains(text(),\"Total Premium\")]/following::span[1]")
+	public static WebElement TotalPremium;
+	
+	
 	
 
 

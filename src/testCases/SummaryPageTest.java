@@ -31,7 +31,7 @@ public class SummaryPageTest extends CommonFunctions {
 		
 
 		PageFactory.initElements(driver, SummaryPageObjects.class);		
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(200));
 		
 		try {
 
@@ -48,8 +48,6 @@ public class SummaryPageTest extends CommonFunctions {
 				
 				SummaryPageObjects.payNowForDirectBill.click();
 				Thread.sleep(10000);
-				if (!map.get("Occupancy Type").toString().equalsIgnoreCase("Vacant (including cosmetic/non-structural renovations)") 				
-				|| !map.get("Occupancy Type").toString().equalsIgnoreCase("Builders Risk (Structural Renovations & Ground Up Construction)"))
 				
 					try {
 						SummaryPageObjects.ITPCheckbox.click();
@@ -59,7 +57,7 @@ public class SummaryPageTest extends CommonFunctions {
 					logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": ITP checkbox not present");
 				}
 				try {
-				SummaryPageObjects.ITPCheckbox.click();
+				//SummaryPageObjects.ITPCheckbox.click();
 				Thread.sleep(1000);
 				if(SummaryPageObjects.contactFirstName.isDisplayed()) {
 				RetryElements.Element_sendKeys(SummaryPageObjects.contactFirstName,map.get("First Name").toString());				
@@ -83,6 +81,7 @@ public class SummaryPageTest extends CommonFunctions {
 				SummaryPageObjects.payNowBtn.click();
 				Thread.sleep(20000);
 				wait.until(ExpectedConditions.visibilityOf(SummaryPageObjects.goToPolicySummary));
+				wait.until(ExpectedConditions.elementToBeClickable(SummaryPageObjects.goToPolicySummary));
 				SummaryPageObjects.goToPolicySummary.click();
 				Thread.sleep(5000);
 				SummaryPageObjects.postBoundCheck1.click();
@@ -94,7 +93,7 @@ public class SummaryPageTest extends CommonFunctions {
 				SummaryPageObjects.savePostBoundCheck.click();
 				Thread.sleep(20000);
 				SummaryPageObjects.issuePolicyBtn.click();
-				Thread.sleep(20000);
+				Thread.sleep(30000);
 				
 			} catch(Exception e) {
 				e.printStackTrace();

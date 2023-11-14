@@ -22,5 +22,20 @@ public class QuoteStatusObjects {
 	public static WebElement createQuoteProposal;
 	
 	@FindBy(xpath="//*[@id=\"QuoteProposalForm:QuoteProposalButton\"]")
-	public static WebElement createQuoteProposalBtn;
+	public static WebElement createQuoteProposalBtn;		
+	
+	@FindBy(xpath="//select[@id=\"DocumentsTile:UW_WorksheetForm:Object__Quote__QuoteBillingType\"]")
+	public static WebElement billing_Type_inUWSheet;
+	
+	
+	@FindBy(xpath="//button[@id=\"DocumentsTile:UW_WorksheetForm:UWWorksheetSave\"]")
+	public static WebElement UW_Sheet_SaveButton;
+	
+	@FindBy(xpath="//*[contains(text(),'Saving rates, factors for the carrier/product')]")
+	public static WebElement SavingRates_UW_Sheet_Loader;
+	
+//	 
+
+	@FindBy(xpath="//*[@id=\"DocumentsTile:UWWorksheetDialog\"]/div[1]/a/span")
+	public static WebElement UWSheet_CloseIcon;
 }

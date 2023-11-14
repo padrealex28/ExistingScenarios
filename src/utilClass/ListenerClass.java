@@ -17,6 +17,13 @@ public class ListenerClass extends CommonFunctions implements ITestListener{
 	public void onTestSuccess(ITestResult result) {
 		// TODO Auto-generated method stub
 		ITestListener.super.onTestSuccess(result);
+		//  driver.quit();
+		    try {
+		//		launchBrowser(properties);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	@Override
