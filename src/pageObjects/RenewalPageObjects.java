@@ -25,6 +25,12 @@ public class RenewalPageObjects {
 	
 	// get the quote status... if equal to offer, proceed to summarypage test file
 
-
+	
+	@FindBy(xpath="//button[@id=\"ReferButton\"]")
+	public static WebElement refer_renewal_quote;
+	
+	@FindBy(xpath="//button[@id=\"QuoteProposalForm:QuoteProposalButton\"]")
+	public static WebElement refer_renewal_quote_pop_up;
+	
 } 
 

@@ -17,7 +17,7 @@ public class ListenerClass extends CommonFunctions implements ITestListener{
 	public void onTestSuccess(ITestResult result) {
 		// TODO Auto-generated method stub
 		ITestListener.super.onTestSuccess(result);
-		//  driver.quit();
+		  driver.quit();
 		    try {
 		//		launchBrowser(properties);
 			} catch (Exception e) {
@@ -63,6 +63,7 @@ public class ListenerClass extends CommonFunctions implements ITestListener{
 	@Override
 	public void onStart(ITestContext context) {
 		// TODO Auto-generated method stub
+	
 		ITestListener.super.onStart(context);
 	}
 

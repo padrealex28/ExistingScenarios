@@ -36,7 +36,7 @@ public class LoginPageTest extends CommonFunctions {
 
 	Logger logger = Logger.getLogger(LoginPageTest.class);
     
-	 
+	
      public void runnerMethod(Map map) throws Exception { 		 
 	  loginPage(map);
       FindQuoteTest findQuote = new FindQuoteTest();
@@ -46,10 +46,10 @@ public class LoginPageTest extends CommonFunctions {
       
      QuoteStatusTest quoteStatus = new QuoteStatusTest();
       quoteStatus.checkQuoteStatus(map);
-      EndorsementPageTest endorsement = new EndorsementPageTest();
-     endorsement.issueEndorsement(map);
-   //  RenewalPageTest RenewalPageTest = new RenewalPageTest();
-    // RenewalPageTest.renewPolicy(map);
+    //  EndorsementPageTest endorsement = new EndorsementPageTest();
+   //  endorsement.issueEndorsement(map);
+     RenewalPageTest RenewalPageTest = new RenewalPageTest();
+    RenewalPageTest.renewPolicy(map);
   //   Cancel_Reinstate_Test cancel_reinstate = new Cancel_Reinstate_Test();
   //   cancel_reinstate.cancelPolicy(map);
   //   cancel_reinstate.reinstatePolicy(map);

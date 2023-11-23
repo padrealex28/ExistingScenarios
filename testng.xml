@@ -7,7 +7,7 @@
 		<listener class-name="utilClass.Transformer"></listener>
 	</listeners>
 
-	<test name="Regression Test">
+	<test name="Existing Scenarios Test">
 		<classes>
 			<class name="testCases.LoginPageTest" />
 		</classes>
