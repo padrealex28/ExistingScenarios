@@ -5,14 +5,14 @@
     <listener class-name="utilClass.ListenerClass"/>
     <listener class-name="utilClass.Transformer"/>
   </listeners>
-  <test thread-count="5" name="Regression Test(failed)">
+  <test thread-count="5" name="Existing Scenarios Test(failed)">
     <classes>
       <class name="testCases.LoginPageTest">
         <methods>
-          <include name="launchBrowser" invocation-numbers="2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 13 13 13 14 14 14 15 15 15 16 16 16 17 17 17 18 18 18 19 19 19 20 20 20 21 21 21 22 22 22 23 23 23 24 24 24 25 25 25 26 26 26 27 27 27 28 28 28"/>
+          <include name="launchBrowser" invocation-numbers="23 23 23 34 34 34 35 35 35 38 40 40 40 43 43 43 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 50 50 51 51 51 52 53 53 53 54 54 54 57 57 57"/>
           <include name="loadPropertyFile"/>
         </methods>
       </class> <!-- testCases.LoginPageTest -->
     </classes>
-  </test> <!-- Regression Test(failed) -->
+  </test> <!-- Existing Scenarios Test(failed) -->
 </suite> <!-- Failed suite [RSG Suite] -->

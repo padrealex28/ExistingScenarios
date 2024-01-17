@@ -37,28 +37,28 @@ public class RenewalPageTest extends CommonFunctions {
 		wait.until(ExpectedConditions.elementToBeClickable(RenewalPageObjects.CreateQuoteProposalButton));
 	
 		
-		RenewalPageObjects.refer_renewal_quote.click();
+	/*	RenewalPageObjects.refer_renewal_quote.click();
 		wait.until(ExpectedConditions.elementToBeClickable(RenewalPageObjects.refer_renewal_quote_pop_up));
 		RenewalPageObjects.refer_renewal_quote_pop_up.click();
         RetryElements.Wait(3000);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Referring the quote to underwriter')]")));
-		logger.info("Clicked Refer Renewal Quote proposal");
+		logger.info("Clicked Refer Renewal Quote proposal"); */
 
 		
-/*		RenewalPageObjects.CreateQuoteProposalButton.click();		
+		RenewalPageObjects.CreateQuoteProposalButton.click();		
 		wait.until(ExpectedConditions.elementToBeClickable(RenewalPageObjects.CreateQuoteProposalDlgBoxButton));
 		RenewalPageObjects.CreateQuoteProposalDlgBoxButton.click();
 		
 
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Creating Quote Proposal')]")));*/
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Creating Quote Proposal')]")));
 	
 		
 		// to get the policy status
-		//Cancel_Reinstate_Test Cancel_Reinstate_Test = new Cancel_Reinstate_Test();
-		//String policyStatus = Cancel_Reinstate_Test.getPolicyStatus(map);
+	//	Cancel_Reinstate_Test Cancel_Reinstate_Test = new Cancel_Reinstate_Test();
+	//	String policyStatus = Cancel_Reinstate_Test.getPolicyStatus(map);
 		
-	//	QuoteStatusTest QuoteStatusTest = new QuoteStatusTest();
-	//	QuoteStatusTest.checkQuoteStatus(map);
+		QuoteStatusTest QuoteStatusTest = new QuoteStatusTest();
+		QuoteStatusTest.checkQuoteStatus(map);
 		
 	}
 }

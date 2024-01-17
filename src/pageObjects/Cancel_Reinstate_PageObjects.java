@@ -12,8 +12,15 @@ public class Cancel_Reinstate_PageObjects {
 	@FindBy(xpath = "//input[@id=\"CancelTile:cancelForm:Object__Quote__EffectiveDate__Display\"]")
 	public static WebElement Cancel_Effective_Date;
 	
+	@FindBy(xpath = "//input[@type=\"button\"]")
+	public static WebElement Cancel_Effective_Date_Button;
+	
 	@FindBy(xpath = "//*[@id=\"CancelTile:cancelForm:Object__Plan__CancelType\"]")
 	public static WebElement Cancel_Type;		
+	
+	public static final String effectiveDate_YEAR = "ui-datepicker-year";
+	
+	public static final String effectiveDate_MONTH = "ui-datepicker-month";
 	
 	@FindBy(xpath = "//input[@id=\"CancelTile:cancelForm:Object__Plan__IsPolicyFeeReturned:0\"]")
 	public static WebElement Return_Policy_Fee_YES;

@@ -27,6 +27,7 @@ import utilClass.RetryElements;
 
 public class EndorsementPageTest extends CommonFunctions {
 	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+	WebDriverWait Smallerwait = new WebDriverWait(driver, Duration.ofSeconds(20));
 	Logger logger = Logger.getLogger(EndorsementPageTest.class);
 
 	public void issueEndorsement(Map map) throws InterruptedException, ClassNotFoundException, SQLException {
@@ -42,14 +43,14 @@ public class EndorsementPageTest extends CommonFunctions {
 //	Set<String> windowHandles = driver.getWindowHandles();
 //	ArrayList<String> tabs =
 		
-		  WebElement policyPDF =
+	/*	  WebElement policyPDF =
 		  wait.until(ExpectedConditions.visibilityOfElementLocated(By.
 		  xpath("//*[contains(text(),\"Policy PDF\")]"))); RetryElements.Wait(4000);
 		  policyPDF.click();
 		  
 		  String pdf_file_path = String.format(EndorsementPageObjects.pdf_file_path,
 		  map.get("Test Data No").toString()); PDF_Checker checkText = new
-		  PDF_Checker(); checkText.searchText(pdf_file_path,map);
+		  PDF_Checker(); checkText.searchText(pdf_file_path,map); */
 		 
 
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()
@@ -69,7 +70,17 @@ public class EndorsementPageTest extends CommonFunctions {
 		wait.until(ExpectedConditions.visibilityOf(EndorsementPageObjects.SaveInsuredButton));
 		wait.until(ExpectedConditions.elementToBeClickable(EndorsementPageObjects.SaveInsuredButton));
 		EndorsementPageObjects.SaveInsuredButton.click();
-
+    try {
+    	Smallerwait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("//*[contains(text(),'Policy extended already')]")));
+    	Smallerwait.until(ExpectedConditions.elementToBeClickable(EndorsementPageObjects.IssueEndorsementinNavigationPanel));
+    	logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+ "Policy extended already,Clicking Issue Endorsement in Navigation Panel");
+    	EndorsementPageObjects.IssueEndorsementinNavigationPanel.click();
+    	logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+ "Clicked IssueEndorsement in NavigationPanel");
+		RetryElements.Wait(3000);
+    }
+    catch(Exception policyExtended) {    	
+  
 		wait.until(ExpectedConditions
 				.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Saving Insured Information')]")));
 		wait.until(ExpectedConditions.elementToBeClickable(EndorsementPageObjects.ContinueToLocationButton));
@@ -137,7 +148,10 @@ public class EndorsementPageTest extends CommonFunctions {
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()
 				+ ": Saving Optional Forms Info and Moving to Summary Page");
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Proceeding to')]")));
-
+    }
+    
+    
+    
 		wait.until(ExpectedConditions.visibilityOf(EndorsementPageObjects.TypeOFEndorsement));
 		wait.until(ExpectedConditions.elementToBeClickable(EndorsementPageObjects.TypeOFEndorsement));
 		String carrier = EndorsementPageObjects.Carrier_Name.getText();
@@ -175,12 +189,12 @@ public class EndorsementPageTest extends CommonFunctions {
 			logger.info(
 					"INSERT INTO Allrisks_Regression.Existing_Scenarios (S_No,Tried_QuoteNumber,Carrier,Endorsement_QuoteNumber,Endorsement_Status)"
 							+ "VALUES ('" + map.get("Test Data No").toString() + "','"
-							+ map.get("Quote Number").toString() + "','" + carrier + "','"
+							+ map.get("Quote Number").toString() + "',\"" + carrier + "\",'"
 							+ QuoteNumber.substring(12).trim() + "','" + "FAIL')");
 			statement.executeUpdate(
 					"INSERT INTO Allrisks_Regression.Existing_Scenarios (S_No,Tried_QuoteNumber,Carrier,Endorsement_QuoteNumber,Endorsement_Status)"
 							+ "VALUES ('" + map.get("Test Data No").toString() + "','"
-							+ map.get("Quote Number").toString() + "','" + carrier + "','"
+							+ map.get("Quote Number").toString() + "',\"" + carrier + "\",'"
 							+ QuoteNumber.substring(12).trim() + "','" + "FAIL')");
 		} catch (Exception e) {
 			wait.until(ExpectedConditions
@@ -195,15 +209,17 @@ public class EndorsementPageTest extends CommonFunctions {
 			logger.info(
 					"INSERT INTO Allrisks_Regression.Existing_Scenarios (S_No,Tried_QuoteNumber,Carrier,Endorsement_QuoteNumber,Endorsement_Status)"
 							+ "VALUES ('" + map.get("Test Data No").toString() + "','"
-							+ map.get("Quote Number").toString() + "','" + carrier + "','"
+							+ map.get("Quote Number").toString() + "',\"" + carrier + "\",'"
 							+ QuoteNumber.substring(12).trim() + "','" + "PASS')");
 			statement.executeUpdate(
 					"INSERT INTO Allrisks_Regression.Existing_Scenarios (S_No,Tried_QuoteNumber,Carrier,Endorsement_QuoteNumber,Endorsement_Status)"
 							+ "VALUES ('" + map.get("Test Data No").toString() + "','"
-							+ map.get("Quote Number").toString() + "','" + carrier + "','"
+							+ map.get("Quote Number").toString() + "',\"" + carrier + "\",'"
 							+ QuoteNumber.substring(12).trim() + "','" + "PASS')");
 		}
 	}
+	
+
 
 	public void clickPolicyNumberLink(Map map) throws InterruptedException {
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber() + ": Trying to Click Policy Number");

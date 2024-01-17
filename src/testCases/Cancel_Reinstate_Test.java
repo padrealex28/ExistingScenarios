@@ -22,18 +22,21 @@ public class Cancel_Reinstate_Test extends CommonFunctions{
 
 
 	public void cancelPolicy(Map map) throws InterruptedException {
+		
 		PageFactory.initElements(driver, Cancel_Reinstate_PageObjects.class);
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Inside Cancel Policy Method");	
 		EndorsementPageTest endo = new EndorsementPageTest();
 		endo.clickPolicyNumberLink(map);
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Policy Number clicked , Clicking on Cancel/Reinstate side panel");		
 		wait.until(ExpectedConditions.visibilityOf(Cancel_Reinstate_PageObjects.Cancel_Reinstate_SidePanel));
+		RetryElements.Wait(3000);
 		Cancel_Reinstate_PageObjects.Cancel_Reinstate_SidePanel.click();
 			
 		
 		wait.until(ExpectedConditions.visibilityOf(Cancel_Reinstate_PageObjects.Cancel_Effective_Date));
 		wait.until(ExpectedConditions.elementToBeClickable(Cancel_Reinstate_PageObjects.Cancel_Effective_Date));
-		RetryElements.Element_sendKeys(Cancel_Reinstate_PageObjects.Cancel_Effective_Date, map.get("Cancel Effective Date").toString());
+		Cancel_Reinstate_PageObjects.Cancel_Effective_Date_Button.click();
+		Select_EffectiveDate(map);
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Clicked on Cancel/Reinstate Side panel, Entered Cancel Effective Date "+ map.get("Cancel Effective Date").toString());
 		RetryElements.Element_select(Cancel_Reinstate_PageObjects.Cancel_Type,map.get("Cancel Type").toString());
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Selected Cancel Type "+map.get("Cancel Type").toString());
@@ -51,7 +54,8 @@ public class Cancel_Reinstate_Test extends CommonFunctions{
 		wait.until(ExpectedConditions.visibilityOf(Cancel_Reinstate_PageObjects.Cancel_Reason));
 		RetryElements.Element_select(Cancel_Reinstate_PageObjects.Cancel_Reason,map.get("Cancel Reason").toString());
 		logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Entered Cancel Reason "+map.get("Cancel Reason").toString());
-		
+
+		wait.until(ExpectedConditions.elementToBeClickable(Cancel_Reinstate_PageObjects.Cancel_Policy_Button));
 		Cancel_Reinstate_PageObjects.Cancel_Policy_Button.click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'Saving the Cancellation Information')]")));
 
@@ -71,10 +75,11 @@ public class Cancel_Reinstate_Test extends CommonFunctions{
 		if(Status_Of_The_POLICY.equalsIgnoreCase("Canceled")) 
 		{
 			logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Clicking Cancel/Reinstate side panel");
+			RetryElements.Wait(3000);
 			Cancel_Reinstate_PageObjects.Cancel_Reinstate_SidePanel.click();
 			wait.until(ExpectedConditions.elementToBeClickable(Cancel_Reinstate_PageObjects.Reinstate_Policy_Button));
-			
-		   RetryElements.Element_select(Cancel_Reinstate_PageObjects.Reinstate_Reason,map.get("Reinstate Reason").toString());		   
+			RetryElements.Wait(3000);
+		    RetryElements.Element_select(Cancel_Reinstate_PageObjects.Reinstate_Reason,map.get("Reinstate Reason").toString());		   
 		   logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()+": Selected Reinstate reason "+map.get("Reinstate Reason").toString());
 		  
 		   Cancel_Reinstate_PageObjects.Reinstate_Policy_Button.click();
@@ -91,7 +96,25 @@ public class Cancel_Reinstate_Test extends CommonFunctions{
 		   }
 		}
 		
+	public void Select_EffectiveDate(Map map) throws InterruptedException {
+	    RetryElements.Wait(5000);
+		String[] MonthDateYear = map.get("Cancel Effective Date").toString().split("/");
+		 for (String element : MonthDateYear) {
+	         System.out.println("String" +element);
+	     }
+		WebElement effectiveDateYear = driver.findElement(By.className(Cancel_Reinstate_PageObjects.effectiveDate_YEAR));
+		RetryElements.Element_select(effectiveDateYear, MonthDateYear[2]);
 		
+		
+		WebElement effectiveDateMonth = driver.findElement(By.className(Cancel_Reinstate_PageObjects.effectiveDate_MONTH));
+		effectiveDateMonth.click();
+		int actualMonth = Integer.parseInt(MonthDateYear[0])-1;
+		System.out.println(String.valueOf(actualMonth)+","+MonthDateYear[1]+","+MonthDateYear[2]);
+		RetryElements.Element_select(effectiveDateMonth,String.valueOf(actualMonth));
+		System.out.println("//td[@data-month='"+actualMonth+"' and @data-year='"+MonthDateYear[2]+"']/a[text()='"+MonthDateYear[1]+"']");
+	    WebElement effectiveDate = driver.findElement(By.xpath("//td[@data-month='"+actualMonth+"' and @data-year='"+MonthDateYear[2]+"']/a[text()='"+MonthDateYear[1]+"']"));   
+	    effectiveDate.click();
+	}
 	
 	public String getPolicyStatus(Map map) {
 		String policyStatus = Cancel_Reinstate_PageObjects.policyStatus;			

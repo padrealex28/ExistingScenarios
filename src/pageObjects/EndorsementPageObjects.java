@@ -21,6 +21,9 @@ public class EndorsementPageObjects {
 	@FindBy(xpath = "//button[@id=\"insuredTile:InsuredFormEquifax:EndoInsuredCheckButton\"]")
 	public static WebElement SaveInsuredButton;
 	
+	@FindBy(xpath = "//button[@id=\"IssuePanelNavigate\"]")
+	public static WebElement IssueEndorsementinNavigationPanel;
+	
 	@FindBy(xpath = "//button[@id=\"EndoContinuetoLocationsButton\"]")
 	public static WebElement ContinueToLocationButton;
 	//Wait for  proceeding to location alert message to disappear after clicking this button

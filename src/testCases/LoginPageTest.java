@@ -1,4 +1,4 @@
-package testCases;
+x`x`package testCases;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,18 +41,18 @@ public class LoginPageTest extends CommonFunctions {
 	  loginPage(map);
       FindQuoteTest findQuote = new FindQuoteTest();
       findQuote.FindAndClickQuote(map);
-     // PDF_Regeneration PDF_Regeneration = new PDF_Regeneration();
-     // PDF_Regeneration.regenerate_PDF(map);
+   //   PDF_Regeneration PDF_Regeneration = new PDF_Regeneration();
+   //  PDF_Regeneration.regenerate_PDF(map);
       
      QuoteStatusTest quoteStatus = new QuoteStatusTest();
       quoteStatus.checkQuoteStatus(map);
-    //  EndorsementPageTest endorsement = new EndorsementPageTest();
-   //  endorsement.issueEndorsement(map);
+   //   EndorsementPageTest endorsement = new EndorsementPageTest();
+  //   endorsement.issueEndorsement(map);
      RenewalPageTest RenewalPageTest = new RenewalPageTest();
-    RenewalPageTest.renewPolicy(map);
-  //   Cancel_Reinstate_Test cancel_reinstate = new Cancel_Reinstate_Test();
-  //   cancel_reinstate.cancelPolicy(map);
-  //   cancel_reinstate.reinstatePolicy(map);
+     RenewalPageTest.renewPolicy(map);
+   //  Cancel_Reinstate_Test cancel_reinstate = new Cancel_Reinstate_Test();
+   //  cancel_reinstate.cancelPolicy(map);
+   //  cancel_reinstate.reinstatePolicy(map);
   }
 		
 	public void loginPage(Map map) throws Exception {

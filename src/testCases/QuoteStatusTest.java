@@ -33,7 +33,7 @@ public class QuoteStatusTest extends CommonFunctions {
 		
 			ClickOverride();		
 
-		try {
+		try {	
 			if (nextPageLink.isDisplayed()) {
 				logger.info(Thread.currentThread().getStackTrace()[1].getLineNumber()
 						+ ": 2nd page for Referral rule ovverride DISPLAYED");

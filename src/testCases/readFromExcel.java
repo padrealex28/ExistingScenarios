@@ -15,7 +15,7 @@ public class readFromExcel {
                                                     //BR_VAC ISSUE IN 30 (3031), 32(3033) Loc page
 	@DataProvider(name = "Datafromexcel", indices = {}) 
 	public static Object[][] readDatafromexcel() throws IOException {
-		FileInputStream fileIn = new FileInputStream("C:\\Users\\padrealex_j\\OneDrive - Solartis Technology Services Pvt. Ltd, [AUTOM]\\New RSG Test Data\\Existing Scenarios\\Trial_run.xlsx");
+		FileInputStream fileIn = new FileInputStream("C:\\Users\\padrealex_j\\Downloads\\Trial_run 1 4.xlsx");
 		Workbook wrkBk = new XSSFWorkbook(fileIn);
 		Sheet sheet = wrkBk.getSheetAt(0);
 		fileIn.close();
